@@ -5,32 +5,40 @@ using System.Collections;
 public class PlayerController : MonoBehaviour
 {
 
-	public float speed;
-	public float jumpHeight;
+	public float moveSpeed;
+	public Transform orientation;
 
-	private Rigidbody rb;
-	private int count;
+	float horizontalInput;
+	float verticalInput;
+	Vector3 moveDirection;
+	Rigidbody rb;
 
 	void Start()
 	{
 		rb = GetComponent<Rigidbody>();
+		rb.freezeRotation = true;
 	}
 
-	void FixedUpdate()
+    private void Update()
+    {
+		MyInput();
+    }
+
+    private void FixedUpdate()
+    {
+		MovePlayer();
+    }
+
+    private void MyInput()
+    {
+		horizontalInput = Input.GetAxisRaw("Horizontal");
+		verticalInput = Input.GetAxisRaw("Vertical");
+    }
+
+	void MovePlayer()
 	{
-		float moveHorizontal = Input.GetAxis("Horizontal");
-		float moveVertical = Input.GetAxis("Vertical");
-
-		Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
-
-		rb.AddForce(movement * speed);
-
-		if (Input.GetKeyDown("space"))
-		{
-			Vector3 jump = new Vector3(0.0f, jumpHeight, 0.0f);
-			rb.AddForce(jump);
-		}
-
+		moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
+		rb.AddForce(moveDirection.normalized * moveSpeed * 10, ForceMode.Force);
 
 	}
 

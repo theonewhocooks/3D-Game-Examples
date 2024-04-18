@@ -6,18 +6,8 @@ using TMPro;
 public class Keypad : MonoBehaviour
 {
     public TMP_InputField charHolder;
-    public GameObject button1;
-    public GameObject button2;
-    public GameObject button3;
-    public GameObject button4;
-    public GameObject button5;
-    public GameObject button6;
-    public GameObject button7;
-    public GameObject button8;
-    public GameObject button9;
-    public GameObject button0;
-    public GameObject clearButton;
-    public GameObject enterButton;
+    public GameObject wall;
+
 
     void Update()
     {
@@ -81,11 +71,14 @@ public class Keypad : MonoBehaviour
             if (charHolder.text == "42")
             {
                 Debug.Log("yarito");
+                Destroy(wall);
             }
             else
             {
                 Debug.Log("don larma");
             }
+
+            charHolder.text = null;
         }
     }
 }

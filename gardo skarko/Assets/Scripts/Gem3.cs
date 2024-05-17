@@ -6,13 +6,13 @@ using UnityEngine;
 public class Gem3 : MonoBehaviour
 {
     private Renderer _renderer;
-    public bool cycorrectColor;
+    public GameObject cyCorrect;
     // Start is called before the first frame update
     void Start()
     {
         _renderer = GetComponent<Renderer>();
         _renderer.material.color = Color.magenta;
-        cycorrectColor = false;
+        cyCorrect.SetActive(false);
     }
 
     void OnCollisionEnter(Collision other)
@@ -21,7 +21,7 @@ public class Gem3 : MonoBehaviour
         {
             _renderer.material.color = Color.cyan;
             StartCoroutine(ChangeCubeColor());
-            cycorrectColor = true;
+            cyCorrect.SetActive(true);
 
         }
     }
@@ -29,7 +29,7 @@ public class Gem3 : MonoBehaviour
     {
         yield return new WaitForSeconds(10);
         _renderer.material.color = Color.magenta;
-        cycorrectColor = false;
+        cyCorrect.SetActive(false);
     }
 
     // Update is called once per frame
